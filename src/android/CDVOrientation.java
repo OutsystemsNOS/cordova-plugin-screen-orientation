@@ -31,6 +31,12 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.util.Log;
 
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import org.apache.cordova.CordovaActivity;
+
 public class CDVOrientation extends CordovaPlugin {
     
     private static final String TAG = "YoikScreenOrientation"; 
@@ -46,6 +52,7 @@ public class CDVOrientation extends CordovaPlugin {
     private static final String LANDSCAPE_SECONDARY = "landscape-secondary";
     private static final String PORTRAIT = "portrait";
     private static final String LANDSCAPE = "landscape";
+    private static final String IMMERSIVE_LANDSCAPE = "immersive-landscape";
     
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
@@ -88,6 +95,17 @@ public class CDVOrientation extends CordovaPlugin {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
         } else if (orientation.equals(PORTRAIT_SECONDARY)) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+        } else if (orientation.equals(IMMERSIVE_LANDSCAPE)) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            View decorView = activity.getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            );
         }
         
         callbackContext.success();
