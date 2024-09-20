@@ -87,7 +87,6 @@ public class CDVOrientation extends CordovaPlugin {
         } else if (orientation.equals(PORTRAIT_PRIMARY)) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         } else if (orientation.equals(LANDSCAPE)) {
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
             View decorView = activity.getWindow().getDecorView();
             decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -97,6 +96,7 @@ public class CDVOrientation extends CordovaPlugin {
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             );
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
         } else if (orientation.equals(PORTRAIT)) {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
         } else if (orientation.equals(LANDSCAPE_SECONDARY)) {
